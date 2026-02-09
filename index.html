@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muza Aura OS | Genesis v35</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      :root {
+        --color-background: #020617;
+        --color-cyan-accent: #22d3ee;
+        --color-purple-accent: #c084fc;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+
+      body {
+        background-color: var(--color-background);
+        color: #e2e8f0; /* slate-200 */
+        cursor: crosshair;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background-image:
+          linear-gradient(rgba(20, 83, 45, 0.15) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(20, 83, 45, 0.15) 1px, transparent 1px),
+          linear-gradient(rgba(100, 116, 139, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(100, 116, 139, 0.1) 1px, transparent 1px);
+        background-size: 120px 120px, 120px 120px, 30px 30px, 30px 30px;
+        background-position: -1px -1px, -1px -1px, -0.5px -0.5px, -0.5px -0.5px;
+        transition: background-color 1s ease-in-out;
+      }
+      
+      .font-data {
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: rgba(34, 211, 238, 0.3);
+        border-radius: 20px;
+        border: 3px solid transparent;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(34, 211, 238, 0.5);
+      }
+
+      /* Custom Selection */
+      ::selection {
+        background: rgba(34, 211, 238, 0.4);
+        color: #f8fafc;
+      }
+
+      /* Glassmorphism Panel base style */
+      .glass-panel {
+        background-color: rgba(15, 23, 42, 0.45); /* slate-900/45 */
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      
+      /* Heartbeat animation for status elements */
+      @keyframes heartbeat {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.03);
+          opacity: 0.85;
+        }
+      }
+
+      .animate-heartbeat {
+        animation: heartbeat 2.5s ease-in-out infinite;
+      }
+
+      /* Glow animation for hive signals */
+      @keyframes pulse-glow {
+        0%, 100% {
+          box-shadow: 0 0 8px rgba(192, 132, 252, 0), 0 0 12px rgba(192, 132, 252, 0);
+        }
+        50% {
+          box-shadow: 0 0 12px rgba(192, 132, 252, 0.5), 0 0 18px rgba(192, 132, 252, 0.3);
+        }
+      }
+
+      .animate-pulse-glow {
+        animation: pulse-glow 1.5s ease-in-out 2;
+      }
+
+      /* Fade in animation for feed items */
+      @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in {
+          animation: fade-in 0.5s ease-out forwards;
+      }
+      
+      /* Ghost effect for zero energy */
+      @keyframes static-noise {
+          0%, 100% { transform: translate(0, 0); }
+          10% { transform: translate(-1px, 1px); }
+          20% { transform: translate(1px, -1px); }
+          30% { transform: translate(-1px, -1px); }
+          40% { transform: translate(1px, 1px); }
+          50% { transform: translate(-2px, 1px); }
+          60% { transform: translate(2px, -1px); }
+          70% { transform: translate(-1px, 2px); }
+          80% { transform: translate(1px, -2px); }
+          90% { transform: translate(-2px, -2px); }
+      }
+      
+      .ghost-effect {
+          filter: grayscale(1) contrast(1.5);
+          animation: static-noise 0.1s infinite;
+          position: relative;
+      }
+      .ghost-effect::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: repeating-linear-gradient(0deg, rgba(255,255,255,0) 0px, rgba(255,255,255,0.05) 1px, rgba(255,255,255,0) 2px);
+          opacity: 0.5;
+          z-index: 100;
+          pointer-events: none;
+      }
+
+      /* Logic Glitch effect for CodeLab errors */
+      @keyframes logic-glitch {
+          0%, 100% {
+              transform: translateX(0);
+              box-shadow: 0 0 0 rgba(239, 68, 68, 0);
+          }
+          10%, 30%, 50%, 70%, 90% {
+              transform: translateX(-2px);
+          }
+          20%, 40%, 60%, 80% {
+              transform: translateX(2px);
+          }
+          50% {
+              box-shadow: 0 0 20px rgba(239, 68, 68, 0.7), inset 0 0 10px rgba(239, 68, 68, 0.5);
+          }
+      }
+      .logic-glitch {
+          animation: logic-glitch 0.5s ease-in-out;
+      }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.418.0",
+    "d3": "https://esm.sh/d3@^7.9.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
